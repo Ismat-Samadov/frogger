@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import "tailwindcss";
+
+/* ─── Neon Retro Theme ─────────────────────────────────────────────────────── */
+@theme inline {
+  --color-neon-green: #39ff14;
+  --color-neon-pink: #ff2d78;
+  --color-neon-cyan: #00f5ff;
+  --color-neon-yellow: #fff01f;
+  --color-neon-purple: #bf00ff;
+  --color-neon-orange: #ff7700;
+  --color-dark-bg: #0a0a14;
+  --color-dark-river: #0a1628;
+  --color-dark-road: #1a1a2e;
+  --color-dark-safe: #0f1f0f;
+  --color-dark-panel: #111122;
+  --color-dark-card: #161630;
+  --color-dark-border: #2a2a5a;
+  --font-retro: "Press Start 2P", monospace;
+  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), monospace;
+  --color-background: #0a0a14;
+  --color-foreground: #e0e0ff;
+}
+
+/* ─── Keyframes ────────────────────────────────────────────────────────────── */
+@keyframes glow-pulse {
+  0%, 100% { text-shadow: 0 0 5px currentColor, 0 0 10px currentColor, 0 0 20px currentColor; }
+  50%       { text-shadow: 0 0 10px currentColor, 0 0 25px currentColor, 0 0 50px currentColor; }
+}
+@keyframes flicker {
+  0%, 95%, 100% { opacity: 1; }
+  96% { opacity: 0.8; }
+  98% { opacity: 0.7; }
+}
+@keyframes float-up {
+  0%   { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-40px); }
+}
+@keyframes scale-in {
+  0%   { opacity: 0; transform: scale(0.5); }
+  100% { opacity: 1; transform: scale(1); }
+}
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-8px); }
+  40% { transform: translateX(8px); }
+  60% { transform: translateX(-5px); }
+  80% { transform: translateX(5px); }
+}
+@keyframes neon-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+@keyframes slide-up {
+  0%   { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Base ─────────────────────────────────────────────────────────────────── */
+:root {
+  --background: #0a0a14;
+  --foreground: #e0e0ff;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: #0a0a14;
+  color: #e0e0ff;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* CRT scanlines */
+.scanlines::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg, transparent, transparent 2px,
+    rgba(0,0,0,0.06) 2px, rgba(0,0,0,0.06) 4px
+  );
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Neon text glow utilities */
+.neon-green  { color: #39ff14; text-shadow: 0 0 8px #39ff14, 0 0 20px #39ff1480; }
+.neon-pink   { color: #ff2d78; text-shadow: 0 0 8px #ff2d78, 0 0 20px #ff2d7880; }
+.neon-cyan   { color: #00f5ff; text-shadow: 0 0 8px #00f5ff, 0 0 20px #00f5ff80; }
+.neon-yellow { color: #fff01f; text-shadow: 0 0 8px #fff01f, 0 0 20px #fff01f80; }
+
+/* Neon box glow */
+.neon-box-green { box-shadow: 0 0 8px #39ff14, 0 0 20px #39ff1440, inset 0 0 8px #39ff1420; }
+.neon-box-cyan  { box-shadow: 0 0 8px #00f5ff, 0 0 20px #00f5ff40, inset 0 0 8px #00f5ff20; }
+.neon-box-pink  { box-shadow: 0 0 8px #ff2d78, 0 0 20px #ff2d7840, inset 0 0 8px #ff2d7820; }
+
+/* Canvas pixel-perfect rendering */
+canvas {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  display: block;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #0a0a14; }
+::-webkit-scrollbar-thumb { background: #2a2a5a; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #39ff1480; }
+
+/* Animations as CSS custom properties for Tailwind */
+.animate-glow-pulse { animation: glow-pulse 2s ease-in-out infinite; }
+.animate-flicker    { animation: flicker 3s ease-in-out infinite; }
+.animate-float-up   { animation: float-up 0.4s ease-out forwards; }
+.animate-scale-in   { animation: scale-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+.animate-shake      { animation: shake 0.4s ease-in-out; }
+.animate-neon-blink { animation: neon-blink 1s step-end infinite; }
+.animate-slide-up   { animation: slide-up 0.5s ease-out forwards; }
